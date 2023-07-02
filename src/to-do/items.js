@@ -1,8 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import { Contexts } from "./context/context";
+
 // import { data } from "./data";
 const Items = (props)=>{
     const {title, description, category, time, colour, id, itemData, itemDataLogic} = props
+    const data =  useContext(Contexts).data
+   
+    const {updateItem, setUpdateItem} = useContext(Contexts).data
     // let {itemData} = props
     const navigate = useNavigate()
 
@@ -24,6 +29,19 @@ console.log(itemDataLogic)
         console.log(newData)
     }
  const updateHandler = ()=>{
+        setUpdateItem(()=>{
+
+          return(       
+              {
+                  title, 
+                  description, 
+                  time, 
+                  category 
+                }
+                ) 
+        })
+        return navigate(`/updatePlace/${id}`)
+      
     const place = itemData.find((item)=>{
         return item.id === id
     })
@@ -47,7 +65,7 @@ return(
             <h6 className="">{time}</h6>
             </div>
             <div className="CONFIGS text-center justify-end grid-cols-3 gap-x-14 px-2 py-2 rounded-lg grid mx-auto bg-gray-100 h-20 w-52">
-            <i title="edit" onClick={editHandler} className="fa-solid fa-file-pen text-yellow-400 cursor-pointer hover:text-yellow-600"></i>
+            <i title="edit" onClick={updateHandler} className="fa-solid fa-file-pen text-yellow-400 cursor-pointer hover:text-yellow-600"></i>
             <i title="complete" className="fa-solid fa-circle-check text-green-400 cursor-pointer hover:text-green-600"></i>
             <i title="delete" onClick={deleteHandler}className="fa-solid fa-trash text-red-400 cursor-pointer hover:text-red-600"></i>
             </div>

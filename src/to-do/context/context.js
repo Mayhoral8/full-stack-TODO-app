@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { createContext } from "react";
 
 
-export const Contexts = createContext({isLoggedIn: false, login: ()=>{}, logout: ()=>{}})
+export const Contexts = createContext()
 // const Context = ()=>{
 //     const [isLoggedIn, setIsLoggedIn] = useState(false)
 //     const login = ()=>{

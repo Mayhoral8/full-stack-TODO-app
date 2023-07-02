@@ -22,7 +22,7 @@ const reducerInputs = (state, action)=>{
     if(action.type === 'email'){
            const newState = {...state, email: action.payload}
           const validation =  validate(newState.email, [VALIDATOR_EMAIL()] )
-          console.log(validation)
+        
            return {...newState, emailVaild: validation.isValid}
     }else if(action.type === 'password'){
         const newState = {...state, password: action.payload}
@@ -48,7 +48,7 @@ const reducerInputs = (state, action)=>{
 }
 
 const Formhandler = (props)=> {
-    const auth = useContext(Contexts)
+    const auth = useContext(Contexts).auth
 const navigate = useNavigate()
  const {type, isValid} = props;
     
@@ -72,14 +72,27 @@ const nameHandler= (e)=>{
     dispatch({type: 'name', payload: e.target.value})
 }
 
-const submit = (e)=>{
+const signUpData = {
+    name: state.userName,
+    email: state.email,
+    password: state.password
+}
+
+const submit = async (e)=>{
     e.preventDefault()
        if(type && isSignupValid){
-        console.log('signup')
-        // return navigate('/')
-       }else{
+        fetch('http://localhost:5000/api/users/signup',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(signUpData)
+     })
+       }
+       else{
         auth.login()
-        return navigate('/places/u1')
+        console.log(auth, auth.isLoggedIn)
+        
        }
    return  dispatch({type: 'clear'})
 }

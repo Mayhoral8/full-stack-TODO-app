@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 
 const InputController = (props)=>{
-    const {firstState, button, title} = props 
+    const {firstState, button, title, type} = props 
     const reducer = (state, action)=>{
         switch(action.type){
               case 'title':{
@@ -68,6 +68,9 @@ const touchHandler = (type)=>{
 
 const submitHandler= (e)=>{
     e.preventDefault();
+  // if(type){
+  //   return navigate(`/places/${creator}`)
+  // }
     const newPlace = {
        title: state.title,
        description: state.description,

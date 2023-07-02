@@ -2,8 +2,11 @@ import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import { Contexts } from "./context/context";
 
+
 const Navbar = () => {
-  const auth = useContext(Contexts)
+  const auth = useContext(Contexts).auth
+
+  console.log(auth)
 
 
   return (
@@ -15,10 +18,14 @@ const Navbar = () => {
         </div>
         <div className="">
         <ul className="grid grid-flow-col text-end">
-        {!auth.isLoggedIn && <li>Login</li>}
         <li>Places</li>
+          <Link to={'/login'}>
+        {!auth.isLoggedIn && <li>Login</li>}
+          </Link>
         {auth.isLoggedIn && <li>Add Place</li>}
+        <Link to={'/signup'}>
         {!auth.isLoggedIn && <li>SignUp</li>}
+        </Link>
     </ul>
         </div>
     </article>
