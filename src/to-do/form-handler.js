@@ -48,7 +48,11 @@ const reducerInputs = (state, action)=>{
 }
 
 const Formhandler = (props)=> {
-    const auth = useContext(Contexts).auth
+const {auth, loading, modal} = useContext(Contexts)
+const {isLoading, hideLoading, showLoading} = loading
+const {modalShow, setModalShow, setModalErrMsg, modalErrMsg} = modal
+
+
 const navigate = useNavigate()
  const {type, isValid} = props;
     
@@ -78,21 +82,62 @@ const signUpData = {
     password: state.password
 }
 
+const loginData = {
+    email: state.email,
+    password: state.password
+}
 const submit = async (e)=>{
     e.preventDefault()
-       if(type && isSignupValid){
-        fetch('http://localhost:5000/api/users/signup',{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(signUpData)
-     })
+       if(type && isSignupValid && !auth.isLoggedIn){
+       showLoading()
+        try{
+            const response = await fetch('http://localhost:5000/api/users/signup',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signUpData)
+            })
+            const responseData = await response.json()
+            console.log(responseData)
+            if(!response.ok){
+                throw new Error(responseData.message)
+            }
+            hideLoading()
+            auth.login()
+        }catch(err){
+            hideLoading()
+            setModalShow(true)
+            setModalErrMsg(err.message)
+            console.log(err)
+        }
+    }
+    else if(!type && isLoginValid && !auth.isLoggedIn){
+       showLoading()
+        try{
+            const response = await fetch('http://localhost:5000/api/users/login',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            })
+            const responseData = await response.json()
+            console.log(responseData)
+            if(!response.ok){
+                throw new Error(responseData.message)
+            }
+            hideLoading()
+            auth.login()
+        }catch(err){
+            hideLoading()
+            setModalShow(true)
+            setModalErrMsg(err.message)
+            console.log(err)
+        }
        }
        else{
-        auth.login()
-        console.log(auth, auth.isLoggedIn)
-        
+        console.log('hello hacker')
        }
    return  dispatch({type: 'clear'})
 }
@@ -120,7 +165,7 @@ const touchHandler = (value)=>{
     {passTxtError ? <span className='text-red-500 text-sm'>Password must be at least six characters</span> : null}
     <div className='mx-auto'>
 
-    {type ? <button disabled={!isSignupValid} type='submit' className={`text-center mt-10 ${isSignupValid ? 'bg-yellow-400':'bg-gray-200'} w-44 rounded-md text-gray-900 h-8`}>{type}</button> : <button disabled={!isLoginValid} type='submit' className={`text-center mt-10 ${isLoginValid ? 'bg-yellow-400':'bg-gray-200'} w-44 rounded-md  h-8`}>{type? 'Signup': 'Login'}</button> }
+    {type ? <button disabled={!isSignupValid} type='submit' className={`text-center mt-10 ${isSignupValid ? 'bg-yellow-400':'bg-gray-200'} w-44 rounded-md text-gray-300 h-8`}>{type}</button> : <button disabled={!isLoginValid} type='submit' className={`text-center mt-10 ${isLoginValid ? 'bg-yellow-400':'bg-gray-200 text-gray-300'} w-44 rounded-md  h-8`}>{type? 'Signup': 'Login'}</button> }
     </div>
     </div>
     </div>

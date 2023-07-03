@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 const Signup = ()=> {
   const navigate = useNavigate()
   const {isLoggedIn} = useContext(Contexts).auth
-  console.log(isLoggedIn)
+
 
   if(!isLoggedIn){
     return (

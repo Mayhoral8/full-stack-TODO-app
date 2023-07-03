@@ -1,14 +1,13 @@
-import React, {useReducer, useEffect} from "react";
-import Input from "./form-handler";
+import React, {useReducer} from "react";
 import { validate, VALIDATOR_REQ_MAX, VALIDATOR_REQUIRE } from "../validators";
 import { data } from "../data";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 const InputController = (props)=>{
-    const {firstState, button, title, type} = props 
+    const {firstState, button, title} = props 
     const reducer = (state, action)=>{
         switch(action.type){
               case 'title':{
@@ -42,7 +41,6 @@ const InputController = (props)=>{
     
     const[state, dispatch] = useReducer(reducer, firstState)
     const navigate = useNavigate();
-    const id = useParams().id
 
 console.log(state.time)
 const titleHandler = (e)=>{

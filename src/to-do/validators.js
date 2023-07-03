@@ -27,7 +27,7 @@ export const validate = (value, validators) => {
   let errorType = ''
   for (const validator of validators) {
     if (validator.type === VALIDATOR_TYPE_REQUIRE) {
-      console.log(value.trim().length > 0)
+     
       isValid = isValid && value.trim().length > 0;
     }
     if (validator.type === VALIDATOR_TYPE_MINLENGTH) {

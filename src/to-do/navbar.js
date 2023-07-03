@@ -6,7 +6,7 @@ import { Contexts } from "./context/context";
 const Navbar = () => {
   const auth = useContext(Contexts).auth
 
-  console.log(auth)
+  
 
 
   return (

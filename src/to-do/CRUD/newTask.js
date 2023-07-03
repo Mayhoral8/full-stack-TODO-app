@@ -1,9 +1,5 @@
-import React, {useReducer, useEffect} from "react";
-import Input from "./form-handler";
-import { validate, VALIDATOR_REQ_MAX, VALIDATOR_REQUIRE } from "../validators";
-import { data } from "../data";
-import { useNavigate, useParams } from "react-router-dom";
-import InputController from "./input";
+import React from "react";
+import InputController from "./input-handler";
 
 
 

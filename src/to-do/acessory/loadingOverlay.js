@@ -1,21 +1,28 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from "styled-components"
+import { Contexts } from '../context/context'
 
-const LoadingOverlay =()=>
- {
-  return (
-    <>
-    <section className='hidden'>
+const LoadingOverlay =()=>{
+
+  const  {isLoading} = useContext(Contexts).loading
+  
+  if(isLoading){
+    return (
+      <>
+    <section className=''>
 
     <ModalStyle>
     <div className='text-4xl'>
-    <i className="fas fa-spinner animate-spin"/> 
+    <i className="fas fa-spinner animate-spin text-yellow-400"/> 
 
     </div>
     </ModalStyle>
     </section>
     </>
   )
+}else{
+  return null
+}
 }
 const ModalStyle = styled.div`
 position: fixed;

@@ -1,13 +1,11 @@
-import React, {useContext, useState} from "react";
-import InpuController from "./input";
-import InputController from "./input";
+import React, {useContext} from "react";
+import InputController from "./input-handler";
 import { Contexts } from "../context/context";
-import {data} from '../data'
+
 
 
 const UpdatePlace = ()=>{
-    const data = useContext(Contexts).data
-    const {updateItem, setUpdateItem} = useContext(Contexts).data
+    const {updateItem} = useContext(Contexts).data
     
     const {title, description, time, category} = updateItem
 

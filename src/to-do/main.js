@@ -1,12 +1,10 @@
-import React, {useEffect, useState, useContext} from 'react'
+import React, {useState} from 'react'
 import Items from './items'
 import { data } from './data'
-import { VALIDATOR_MINLENGTH } from './validators'
 import { useParams } from 'react-router-dom'
-import { Contexts } from './context/context'
 
  const Main = ()=>{
-//  const data = useContext(Contexts).data
+
 
  const userId = useParams().id
  const loadedItems = data.filter((item)=>{
