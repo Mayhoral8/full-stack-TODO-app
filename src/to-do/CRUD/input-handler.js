@@ -1,12 +1,16 @@
-import React, {useReducer} from "react";
+import React, {useReducer, useContext} from "react";
 import { validate, VALIDATOR_REQ_MAX, VALIDATOR_REQUIRE } from "../validators";
 import { data } from "../data";
 import { useNavigate } from "react-router-dom";
+import { Contexts } from "../context/context";
 
 
 
 
 const InputController = (props)=>{
+  const {userId, taskId} = useContext(Contexts).responseData
+  const {hideLoading, showLoading} = useContext(Contexts).loading
+  const {setModalErrMsg, setModalShow} = useContext(Contexts).modal
     const {firstState, button, title} = props 
     const reducer = (state, action)=>{
         switch(action.type){
@@ -41,8 +45,6 @@ const InputController = (props)=>{
     
     const[state, dispatch] = useReducer(reducer, firstState)
     const navigate = useNavigate();
-
-console.log(state.time)
 const titleHandler = (e)=>{
     dispatch({type: 'title', payload: e.target.value})
 }
@@ -64,21 +66,64 @@ const touchHandler = (type)=>{
     dispatch({type: 'time-touch'})
 }
 
-const submitHandler= (e)=>{
+const submitHandler= async (e)=>{
     e.preventDefault();
   // if(type){
   //   return navigate(`/places/${creator}`)
   // }
+  console.log(taskId)
     const newPlace = {
        title: state.title,
        description: state.description,
        category: state.category,
-       time: state.time
-       
+       time: state.time,
+       creator: userId      
     }
-    data.push(newPlace)
-    console.log(newPlace)
-    return navigate('/')
+    if(button === 'Create Task'){
+    try{
+        
+      
+      showLoading(true)
+      const response = await fetch('http://localhost:5000/api/tasks',{
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPlace)
+      })
+      const responseData = await response.json()
+      if(!response.ok){
+        throw new Error(responseData.message)
+      }
+      navigate(`/${userId}/tasks`)
+      hideLoading(true)
+    }catch(err){
+      hideLoading(true)
+      setModalShow(true)
+      setModalErrMsg(err.message)
+    }
+  } else if(button === 'Update'){
+      try{
+        showLoading(true)
+        const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`,{
+          method: 'PATCH',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newPlace)
+        })
+        const responseData = await response.json()
+        if(!response.ok){
+          throw new Error(responseData.message)
+        }
+        navigate(`/${userId}/tasks`)
+        hideLoading(true)
+      }catch(err){
+        hideLoading(true)
+        setModalShow(true)
+        setModalErrMsg(err.message)
+      }
+    }
    
 }
 
@@ -96,7 +141,7 @@ const isFormValid = state.titleValid.isValid && state.timeValid
 
 
     return(
-        <div className="border-2 mx-20 mt-20 bg-gray-900 py-2 border-yellow-400 rounded-md">
+        <div className="border-2 lg:w-2/5 lg:mx-auto mx-20 mt-20 bg-gray-900 py-2 border-yellow-400 rounded-md">
             <h3 className="text-center text-white ">{title}</h3>
         <form onSubmit={submitHandler}className="grid grid-rows-5 gap-y-8 mx-2 mt-4">
         <div>

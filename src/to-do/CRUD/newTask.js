@@ -18,7 +18,7 @@ const initialState = {
         }
 return(
 <>
-    <InputController firstState = {initialState} title = 'Add a new place' button = 'Create Task'/>
+    <InputController firstState = {initialState} title = 'Add a new task' button = 'Create Task'/>
     </>
 )
 }

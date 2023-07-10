@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from 'react'
-import Formhandler from './form-handler'
+import Formhandler from './auth-handler'
 import { Contexts } from './context/context'
 import { useNavigate } from 'react-router-dom'
 

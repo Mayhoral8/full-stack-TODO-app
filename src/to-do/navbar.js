@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Contexts } from "./context/context";
 
 
@@ -12,20 +12,35 @@ const Navbar = () => {
   return (
     <>
     <section className="bg-black text-white">
-    <article className="grid-cols-2 grid h-12 mx-20 leading-10"> 
+    <article className="grid-cols-2 grid h-12 mx-32 leading-10"> 
         <div className="">
+            <NavLink to='/' exact>
+
         <h2>ToDo</h2>
+            </NavLink>
+          
         </div>
         <div className="">
         <ul className="grid grid-flow-col text-end">
-        <li>Places</li>
-          <Link to={'/login'}>
-        {!auth.isLoggedIn && <li>Login</li>}
-          </Link>
-        {auth.isLoggedIn && <li>Add Place</li>}
-        <Link to={'/signup'}>
-        {!auth.isLoggedIn && <li>SignUp</li>}
-        </Link>
+        
+          
+        {!auth.isLoggedIn && <li> <NavLink to='/login'> 
+          Login
+          </NavLink> </li>}
+       
+          {auth.isLoggedIn &&
+       
+       <li onClick={auth.logout}> <NavLink to='/login'>logout
+        </NavLink></li>
+       }
+
+       {auth.isLoggedIn &&
+       <li><NavLink to='/newPlace'>Add new Place</NavLink></li>
+      
+       }
+        
+        {!auth.isLoggedIn && <li> <NavLink to='/signup'> SignUp</NavLink></li>}
+       
     </ul>
         </div>
     </article>
