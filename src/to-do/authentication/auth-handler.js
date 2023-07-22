@@ -11,6 +11,7 @@ import ImageUpload from '../image-upload'
 
 const Formhandler = (props) => {
     const server = process.env.REACT_APP_SERVER_URL
+    console.log(server)
     const { auth, loading, modal, responseData, files } = useContext(Contexts)
     const { file, isFileValid, setFile } = files
 

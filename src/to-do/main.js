@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Contexts } from './context/context'
 
  const Main = ()=>{
+    const server = process.env.REACT_APP_SERVER_URL
     const {loading, modal, responseData, files, auth} = useContext(Contexts)
     const {loadedData, setLoadedData, userId, taskId, dspName} = responseData
     const { hideLoading, showLoading} = loading

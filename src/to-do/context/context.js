@@ -54,7 +54,7 @@ const ContextProvider = (props)=>{
       
       let timeoutId;
       useEffect(()=>{
-        console.log('c')
+       
         if(tokenExpDate){
           const minutesLeft = tokenExpDate - new Date().getTime()
           console.log(minutesLeft)
@@ -65,12 +65,12 @@ const ContextProvider = (props)=>{
       }, [tokenExpDate, logout])
 
       useEffect(()=>{
-        console.log('a')
+        
         const storedData = JSON.parse(localStorage.getItem('userData'))
         if(storedData && storedData.token && storedData.tokenExpirationDate > new Date().getTime()){
           login(storedData.userId, storedData.name, storedData.image, storedData.token, storedData.tokenExpirationDate)
         }else{
-          console.log('bug seen')
+          
         }
       }, [token])
   
@@ -85,7 +85,7 @@ const ContextProvider = (props)=>{
     return(<>
 
     <Contexts.Provider value={
-        {auth:{token, login,  logout}, data: {updateItem, setUpdateItem}, loading: {isLoading: isLoading, showLoading, hideLoading}, modal: {modalMsg, setModalMsg, logoutModal, setLogoutModal, modalShow, setModalShow, modalErrMsg, setModalErrMsg, delModal, setDelModal}, responseData: {loadedData, setLoadedData, userId, setUserId, dspName, setDspName, taskId, setTaskId, deleteHandler}, files:{file, setFile, isFileValid, setIsFileValid, profileImg, setProfileImg}, logoutContext:{show, setShow}
+        {auth:{token, login,  logout}, data: {updateItem, setUpdateItem}, loading: {isLoading: isLoading, showLoading, hideLoading}, modal: {modalMsg, setModalMsg, logoutModal, setLogoutModal, modalShow, setModalShow, modalErrMsg, setModalErrMsg, delModal, setDelModal}, responseData: {loadedData, setLoadedData, userId, setUserId, dspName, setDspName, taskId, setTaskId}, files:{file, setFile, isFileValid, setIsFileValid, profileImg, setProfileImg}, logoutContext:{show, setShow}
     }
  }>
               {props.children}
