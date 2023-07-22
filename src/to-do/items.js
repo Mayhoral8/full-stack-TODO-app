@@ -61,7 +61,7 @@ return(
     <>
         <article  data-aos="fade-up"
                   data-aos-easing="ease-out"
-                  data-aos-duration="1200" className={`${colour ? colour: 'bg-gradient-to-r from-gray-900 to-gray-800'} overflow-hidden text-white drop-shadow-lg grid py-4 px-4 grid-rows-4 border-blue-300 h-56 gap-y-12 rounded-lg`}>
+                  data-aos-duration="1200" className={`${colour ? colour: 'bg-gradient-to-r from-gray-900 to-gray-800'} w-64 mx-auto overflow-hidden text-white drop-shadow-lg grid py-4 px-4 grid-rows-4 border-blue-300 h-56 gap-y-12 rounded-lg`}>
             <div className=" grid grid-cols-2">
         <div className="TEXTS grid   w-56">
         <h1 className="text-l font-bold">{title}</h1>

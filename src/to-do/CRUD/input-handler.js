@@ -85,7 +85,7 @@ const submitHandler= async (e)=>{
     if(button === 'Create Task'){
     try{
       showLoading(true)
-      const response = await fetch(`${server}api/tasks`,{
+      const response = await fetch(`${server}/api/tasks`,{
         method: 'POST',
         headers:{
           'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ const submitHandler= async (e)=>{
   } else if(button === 'Update'){
       try{
         showLoading(true)
-        const response = await fetch(`${server}api/tasks/${taskId}`,{
+        const response = await fetch(`${server}/api/tasks/${taskId}`,{
           method: 'PATCH',
           headers:{
             'Content-Type': 'application/json'
@@ -145,7 +145,7 @@ const isFormValid = state.titleValid.isValid && state.timeValid
 
 
     return(
-        <div className="border-2 lg:w-2/5 lg:mx-auto mx-20 mt-20 bg-gray-900 py-2 border-yellow-400 rounded-md">
+        <div className="border-2 lg:w-2/5 w-10/12 mx-auto mx-20 mt-20 bg-gray-900 py-2 border-yellow-400 rounded-md">
             <h3 className="text-center text-white ">{title}</h3>
         <form onSubmit={submitHandler}className="grid grid-rows-5 gap-y-8 mx-2 mt-4">
         <div>

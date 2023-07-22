@@ -4,7 +4,7 @@ import { Contexts } from "./context/context";
 
 
 const Navbar = () => {
-  console.log(useContext(Contexts))
+  
   const auth = useContext(Contexts).auth
   const modal = useContext(Contexts).modal
   const { setLogoutModal, setModalShow, setModalMsg } = modal
@@ -51,7 +51,7 @@ const Navbar = () => {
 
                   {auth.token ?
 
-                    <li className={`${show ? 'visible' : 'hidden lg:block'} cursor-pointer text-yellow-400`} onClick={logoutModalHandler}>logout
+                    <li className={`${show ? 'visible' : 'hidden lg:block'} cursor-pointer text-yellow-400`} onClick={()=> {logoutModalHandler(); showHandler()}}>logout
                     </li>
                     : null}
 

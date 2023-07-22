@@ -16,7 +16,7 @@ import { Contexts } from './context/context'
 useEffect(()=>{
   const server = process.env.REACT_APP_SERVER_URL
 
-    console.log('b')
+    
     if(auth.token){
         showLoading(true)
         if(userId){
@@ -70,7 +70,7 @@ if(auth.token){
      <h3 className='lg:text-4xl text-xl font-bold'>You currently have no tasks</h3>
      <button onClick={navigateHandler} className='h-10 mx-auto w-36 rounded-lg text-black bg-yellow-300 '>Create a new task</button>
     </div>
-     : <section className=" grid mx-24 mt-10 grid-cols-1 gap-y-6 gap-x-4 lg:grid-cols-3 md:grid-cols-2 min-h-fit">
+     : <section className="grid lg:mx-24  mt-10 grid-cols-1 gap-y-6 gap-x-4 lg:grid-cols-3 md:grid-cols-2 min-h-fit">
     {loadedData.map((data, index)=>{
     return <Items key = {data.id} id={data.id} title = {data.title} description = {data.description} creator = {data.creator} itemData = {loadedData} itemDataLogic = {setLoadedData} />
 })}

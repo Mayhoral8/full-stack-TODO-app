@@ -11,7 +11,7 @@ import ImageUpload from '../image-upload'
 
 const Formhandler = (props) => {
     const server = process.env.REACT_APP_SERVER_URL
-    console.log(server)
+   
     const { auth, loading, modal, responseData, files } = useContext(Contexts)
     const { file, isFileValid, setFile } = files
 
@@ -133,7 +133,7 @@ const Formhandler = (props) => {
                     throw new Error(responseData.message)
                 }
                 hideLoading()
-                console.log(responseData.token)
+                
                 auth.login(responseData.userId, responseData.name, responseData.image, responseData.token)
                 setFile('')
             } catch (err) {

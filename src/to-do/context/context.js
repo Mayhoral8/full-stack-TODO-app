@@ -46,7 +46,7 @@ const ContextProvider = (props)=>{
         setToken(()=> null)
         setTokenExpDate(null)
         setModalShow(false)
-        console.log('yayy')
+        
         localStorage.removeItem('userData')
         return navigate('/login')
         
@@ -57,7 +57,7 @@ const ContextProvider = (props)=>{
        
         if(tokenExpDate){
           const minutesLeft = tokenExpDate - new Date().getTime()
-          console.log(minutesLeft)
+         
           timeoutId = setTimeout(logout, minutesLeft)
         }else{
             clearTimeout(timeoutId)
