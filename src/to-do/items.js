@@ -51,7 +51,7 @@ const Items = (props)=>{
         })
          navigate(`/updatePlace/${id}`)
          setTaskId(id)
-         console.log(taskId)
+         
       
     const place = itemData.find((item)=>{
         return item.id === id

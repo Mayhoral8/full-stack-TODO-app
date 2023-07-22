@@ -71,10 +71,7 @@ const touchHandler = (type)=>{
 
 const submitHandler= async (e)=>{
     e.preventDefault();
-  // if(type){
-  //   return navigate(`/places/${creator}`)
-  // }
-  console.log(taskId)
+  
     const newPlace = {
        title: state.title,
        description: state.description,
@@ -110,7 +107,9 @@ const submitHandler= async (e)=>{
         const response = await fetch(`${server}/api/tasks/${taskId}`,{
           method: 'PATCH',
           headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+
           },
           body: JSON.stringify(newPlace)
         })

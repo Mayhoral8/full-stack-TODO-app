@@ -170,7 +170,7 @@ const Formhandler = (props) => {
                         {passTxtError ? <span className='text-red-500 text-sm'>Password must be at least six characters</span> : null}
                         <div className='mx-auto'>
 
-                            {type ? <button disabled={!isSignupValid} type='submit' className={`text-center mt-4 mb-4 ${isSignupValid ? 'bg-yellow-400 text-gray-900' : 'bg-gray-200 '} w-44 rounded-md text-gray-400 h-8`}>{type}</button> : <button disabled={!isLoginValid} type='submit' className={`text-center mt-10 ${isLoginValid ? 'bg-yellow-400' : 'bg-gray-200 text-gray-300'} w-44 rounded-md  h-8`}>{type ? 'Signup' : 'Login'}</button>}
+                            {type ? <button disabled={!isSignupValid} type='submit' className={`text-center mt-4 mb-4 ${isSignupValid ? 'bg-yellow-400 text-gray-900' : 'bg-gray-200 '} w-44 rounded-md text-gray-400 h-8`}>{type}</button> : <button disabled={!isLoginValid} type='submit' className={`text-center mt-10 ${isLoginValid ? 'bg-yellow-400' : 'bg-gray-200 text-gray-900'} w-44 rounded-md  h-8`}>{type ? 'Signup' : 'Login'}</button>}
                         </div>
                     </div>
                 </div>
