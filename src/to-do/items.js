@@ -13,7 +13,7 @@ const Items = (props)=>{
    
     const {dspName, taskId, setTaskId} = useContext(Contexts).responseData
     const {showLoading, hideLoading} = useContext(Contexts).loading
-    const {setModalErrMsg, setModalShow, delModal, setDelModal} = useContext(Contexts).modal
+    const {setModalErrMsg, setModalShow, setModalMsg, setDelModal} = useContext(Contexts).modal
 
 
 
@@ -27,31 +27,15 @@ const Items = (props)=>{
         navigate('/newPlace')
     }
 
-    const deleteHandler1 = async ()=>{
+    const deleteHandler = async ()=>{
+        setModalMsg('Are you sure you want to delete this task?' )
         setDelModal(true)
         setModalShow(true)
         setTaskId(id)
         console.log(taskId)
     }
        
-    const deleteHandler2 = async ()=>{
-        try{
-          console.log(taskId)
-           const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`,{
-               method: 'DELETE'
-           })
-           const responseData = await response.json()
-           if(!response.ok){
-               throw new Error(responseData.message)
-           }
-           hideLoading()       
-       }catch(err){
-           hideLoading()
-           setModalShow(true)
-           setModalErrMsg(err.message)
-           console.log(err)
-       }
-      }
+   
      
  const updateHandler = ()=>{
         setUpdateItem(()=>{
@@ -84,7 +68,7 @@ return(
         </div>
         <div className="ml-auto ">
             
-            <i class="fa-duotone fa-grid"/>
+            <i className="fa-duotone fa-grid"/>
             
         </div>
             </div>
@@ -97,7 +81,7 @@ return(
             <div className="CONFIGS text-center justify-end grid-cols-3 gap-x-14 px-2 py-2 rounded-lg grid mx-auto bg-gray-100 h-20 w-52">
             <i title="edit" onClick={updateHandler} className="fa-solid fa-file-pen text-yellow-400 cursor-pointer hover:text-yellow-600"></i>
             <i title="complete" className="fa-solid fa-circle-check text-green-400 cursor-pointer hover:text-green-600"></i>
-            <i title="delete" onClick={deleteHandler1}className="fa-solid fa-trash text-red-400 cursor-pointer hover:text-red-600"></i>
+            <i title="delete" onClick={deleteHandler}className="fa-solid fa-trash text-red-400 cursor-pointer hover:text-red-600"></i>
             </div>
         </article>  
     </>

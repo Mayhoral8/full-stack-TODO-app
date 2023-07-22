@@ -31,7 +31,7 @@ bottom: 0;
 right: 0;
 left: 0;
 display: flex;
-z-index: 10;
+z-index: 40;
 align-items: center;
 justify-content: center;
 background: rgba(0, 0, 0, 0.8);

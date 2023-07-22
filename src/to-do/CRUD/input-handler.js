@@ -1,6 +1,5 @@
 import React, {useReducer, useContext} from "react";
 import { validate, VALIDATOR_REQ_MAX, VALIDATOR_REQUIRE } from "../validators";
-import { data } from "../data";
 import { useNavigate } from "react-router-dom";
 import { Contexts } from "../context/context";
 
@@ -8,9 +7,13 @@ import { Contexts } from "../context/context";
 
 
 const InputController = (props)=>{
+  const server = process.env.REACT_APP_SERVER_URL
+
   const {userId, taskId} = useContext(Contexts).responseData
   const {hideLoading, showLoading} = useContext(Contexts).loading
   const {setModalErrMsg, setModalShow} = useContext(Contexts).modal
+  const {token} = useContext(Contexts).auth
+
     const {firstState, button, title} = props 
     const reducer = (state, action)=>{
         switch(action.type){
@@ -81,13 +84,12 @@ const submitHandler= async (e)=>{
     }
     if(button === 'Create Task'){
     try{
-        
-      
       showLoading(true)
-      const response = await fetch('http://localhost:5000/api/tasks',{
+      const response = await fetch(`${server}api/tasks`,{
         method: 'POST',
         headers:{
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
         },
         body: JSON.stringify(newPlace)
       })
@@ -105,7 +107,7 @@ const submitHandler= async (e)=>{
   } else if(button === 'Update'){
       try{
         showLoading(true)
-        const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`,{
+        const response = await fetch(`${server}api/tasks/${taskId}`,{
           method: 'PATCH',
           headers:{
             'Content-Type': 'application/json'
@@ -135,7 +137,9 @@ const timeErrMsg = 'time is required'
 
 const isFormValid = state.titleValid.isValid && state.timeValid
 
- 
+ const cancelHandler=()=>{
+  return navigate(`/${userId}/tasks`)  
+ }
 
 
 
@@ -163,7 +167,7 @@ const isFormValid = state.titleValid.isValid && state.timeValid
         {timeErrShw ? <p className="text-red-400 text-sm">{timeErrMsg}</p> : null}
         </div>
         <div className="grid grid-cols-2 w-44 mx-auto gap-x-2">
-        <button className="border drop-shadow-md rounded-lg text-yellow-400 text-sm">Cancel</button> 
+        <button type="button" onClick={cancelHandler}className="border drop-shadow-md rounded-lg text-yellow-400 text-sm">Cancel</button> 
         <button type="submit" disabled={!isFormValid} className={`${!isFormValid ? 'border rounded-lg bg-gray-200 text-gray-300 text-sm': 'border drop-shadow-md rounded-lg  bg-yellow-400 text-sm'}`}>{button}</button> 
         </div>
         </form>
