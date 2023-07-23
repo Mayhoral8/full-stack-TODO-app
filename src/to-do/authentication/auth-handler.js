@@ -16,7 +16,7 @@ const Formhandler = (props) => {
     const { file, isFileValid, setFile } = files
 
     const { hideLoading, showLoading } = loading
-    const { setModalShow, setModalErrMsg } = modal
+    const { setModalShow, setModalErrMsg, setDelModal, setLogoutModal } = modal
     const { setUserId, setDspName } = responseData
 
     const initialState = {
@@ -113,6 +113,8 @@ const Formhandler = (props) => {
 
             } catch (err) {
                 hideLoading()
+                setDelModal(false)
+                setLogoutModal(false)
                 setModalShow(true)
                 setModalErrMsg(err.message)
                 console.log(err)
@@ -138,6 +140,8 @@ const Formhandler = (props) => {
                 setFile('')
             } catch (err) {
                 hideLoading()
+                setDelModal(false)
+                setLogoutModal(false)
                 setModalShow(true)
                 setModalErrMsg(err.message)
                 console.log(err)
@@ -145,6 +149,34 @@ const Formhandler = (props) => {
         }
 
     }
+
+
+// const upload = (e)=>{
+//             e.preventDefault();
+//             if(image  === null)return;
+//             const imageRef = ref(storage, `${auth.currentUser.uid}/${image.name}`);
+//             uploadBytes(imageRef, image).then(()=>{
+//               alert('image uploaded');
+//             }).then(()=>{
+//               const dbImageRef = ref(storage, `${auth.currentUser.uid}`)
+//               listAll(dbImageRef).then((response)=>{
+//                 console.log(response)
+//                 const items = response.items
+//                 console.log(items)
+//                 let temp = []
+//                 items.forEach((item, i)=>{            
+//                       getDownloadURL(item).then((urlRaw)=>{
+//                         console.log(urlRaw)
+//                         updateFunc(e, urlRaw);
+//                       })
+                      
+//                     })
+                  
+//               }).then(()=>{
+//                 alert('Registration Successful ✔')
+//               })
+//             })
+//           }
 
     const touchHandler = (value) => {
         dispatch({ type: 'TOUCH', value })
