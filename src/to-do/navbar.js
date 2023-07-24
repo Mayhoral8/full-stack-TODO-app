@@ -41,7 +41,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="">
-            <article className={`${show ? 'mt-2 border-t lg:border-none lg:h-0 lg:block h-screen  sticky text-center  lg:text-base text-2xl  bg-gray-900 ' : ' '}  transition-all ease-in ease-out delay-400`}>
+            <article className={`${show ? 'mt-2 border-t lg:border-none lg:h-0 md:h-0 md:block lg:block h-screen  sticky text-center  lg:text-base text-2xl  bg-gray-900 ' : ' hidden lg:block h-0'}  transition-all ease-in ease-out delay-400`}>
               <div className=" h-full">
                 <ul className={`${show ? 'grid-flow-row gap-y-10' : 'h-0'} pt-44 lg:pt-0 text-white grid lg:grid-flow-col lg:text-end `}>
                   {!auth.token ?

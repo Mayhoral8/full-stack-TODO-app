@@ -1,8 +1,11 @@
-import React, { useReducer, useContext } from 'react'
+import React, { useReducer, useContext, useState } from 'react'
 import { validate } from '../validators'
 import { Contexts } from '../context/context'
 import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from '../validators'
 import ImageUpload from '../image-upload'
+import { storage, storageRef } from '../firebase/firebase-config'
+import { uploadBytes, listAll, getDownloadURL, ref, get } from 'firebase/storage'
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -10,6 +13,8 @@ import ImageUpload from '../image-upload'
 
 
 const Formhandler = (props) => {
+    const [tempImgId, setTempImgId] = useState(uuidv4())
+    const [fbImgUrl, setFbImgUrl] = useState('')
     const server = process.env.REACT_APP_SERVER_URL
    
     const { auth, loading, modal, responseData, files } = useContext(Contexts)
@@ -87,17 +92,31 @@ const Formhandler = (props) => {
         email: state.email,
         password: state.password
     }
-    const formData = new FormData()
-    formData.append('name', state.name)
-    formData.append('email', state.email)
-    formData.append('password', state.password)
-    formData.append('image', file)
+   
+// console.log(tempImgId)
 
-    const submit = async (e) => {
+
+   
+
+      const submit = async (e) => {
+        let imgUrl;
         e.preventDefault()
+        showLoading()
         if (type && isSignupValid && !auth.token) {
-            showLoading()
-            try {
+        if(file === null)return
+        const imageRef = ref(storage, `${tempImgId}/${file.name}`);
+       await uploadBytes(imageRef, file)
+       const url = await getDownloadURL(ref(storage,  `${tempImgId}/${file.name}`));
+    
+  
+        const formData = new FormData()
+        formData.append('name', state.name)
+        formData.append('email', state.email)
+        formData.append('password', state.password)
+        formData.append('image', file)
+        formData.append('firebaseImgUrl', url)
+        try {
+            console.log(fbImgUrl, imgUrl)
                 const response = await fetch(`${server}/api/users/signup`, {
                     method: 'POST',
                     body: formData
@@ -107,10 +126,12 @@ const Formhandler = (props) => {
                 if (!response.ok) {
                     throw new Error(responseData.message)
                 }
-                hideLoading()
+                
+                
                 auth.login(responseData.userId, responseData.name, responseData.image, responseData.token)
                 setFile('')
-
+                
+                hideLoading(true)
             } catch (err) {
                 hideLoading()
                 setDelModal(false)
@@ -119,7 +140,9 @@ const Formhandler = (props) => {
                 setModalErrMsg(err.message)
                 console.log(err)
             }
-        }
+            
+        
+    }
         else if (!type && isLoginValid && !auth.token) {
             showLoading()
             try {
@@ -151,32 +174,6 @@ const Formhandler = (props) => {
     }
 
 
-// const upload = (e)=>{
-//             e.preventDefault();
-//             if(image  === null)return;
-//             const imageRef = ref(storage, `${auth.currentUser.uid}/${image.name}`);
-//             uploadBytes(imageRef, image).then(()=>{
-//               alert('image uploaded');
-//             }).then(()=>{
-//               const dbImageRef = ref(storage, `${auth.currentUser.uid}`)
-//               listAll(dbImageRef).then((response)=>{
-//                 console.log(response)
-//                 const items = response.items
-//                 console.log(items)
-//                 let temp = []
-//                 items.forEach((item, i)=>{            
-//                       getDownloadURL(item).then((urlRaw)=>{
-//                         console.log(urlRaw)
-//                         updateFunc(e, urlRaw);
-//                       })
-                      
-//                     })
-                  
-//               }).then(()=>{
-//                 alert('Registration Successful ✔')
-//               })
-//             })
-//           }
 
     const touchHandler = (value) => {
         dispatch({ type: 'TOUCH', value })
