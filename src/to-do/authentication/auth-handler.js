@@ -182,6 +182,7 @@ const Formhandler = (props) => {
     return (
 
         <div className='h-72 z-10 '>
+        
             <form onSubmit={submit} autoComplete='off'>
 
                 <div className={`z-20 absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 px-2 w-72 bg-gray-900 rounded-md ${type ? 'h-auto' : 'h-72'}`}>
@@ -199,7 +200,7 @@ const Formhandler = (props) => {
                         {passTxtError ? <span className='text-red-500 text-sm'>Password must be at least six characters</span> : null}
                         <div className='mx-auto'>
 
-                            {type ? <button disabled={!isSignupValid} type='submit' className={`text-center mt-4 mb-4 ${isSignupValid ? 'bg-yellow-400 text-gray-900' : 'bg-gray-200 '} w-44 rounded-md text-gray-400 h-8`}>{type}</button> : <button disabled={!isLoginValid} type='submit' className={`text-center mt-10 ${isLoginValid ? 'bg-yellow-400' : 'bg-gray-200 text-gray-900'} w-44 rounded-md  h-8`}>{type ? 'Signup' : 'Login'}</button>}
+                            {type ? <button disabled={!isSignupValid} type='submit' className={`text-center mt-4 mb-4 ${isSignupValid ? 'bg-yellow-400 text-gray-900' : 'bg-gray-200 '} w-44 rounded-md text-gray-400 h-8`}>{type}</button> : <button disabled={!isLoginValid} type='submit' className={`text-center mt-10 ${isLoginValid ? 'bg-yellow-400' : 'bg-gray-200 text-gray-400'} w-44 rounded-md  h-8`}>{type ? 'Signup' : 'Login'}</button>}
                         </div>
                     </div>
                 </div>
