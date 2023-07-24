@@ -92,6 +92,7 @@ const Formhandler = (props) => {
         email: state.email,
         password: state.password
     }
+ 
    
 // console.log(tempImgId)
 
@@ -107,19 +108,29 @@ const Formhandler = (props) => {
         const imageRef = ref(storage, `${tempImgId}/${file.name}`);
        await uploadBytes(imageRef, file)
        const url = await getDownloadURL(ref(storage,  `${tempImgId}/${file.name}`));
-    
+    console.log(url)
   
-        const formData = new FormData()
-        formData.append('name', state.name)
-        formData.append('email', state.email)
-        formData.append('password', state.password)
-        formData.append('image', file)
-        formData.append('firebaseImgUrl', url)
+        // const formData = new FormData()
+        // formData.append('name', state.name)
+        // formData.append('email', state.email)
+        // formData.append('password', state.password)
+        // formData.append('image', file)
+        // formData.append('firebaseImgUrl', url)
+
+        const signUpData = {
+            name: state.name,
+            email: state.email,
+            password: state.password,
+            image: url
+        }
         try {
             console.log(fbImgUrl, imgUrl)
                 const response = await fetch(`${server}/api/users/signup`, {
                     method: 'POST',
-                    body: formData
+                    headers:  {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(signUpData)
                 })
                 const responseData = await response.json()
                 console.log(responseData)
