@@ -12,7 +12,10 @@ const Signup = ()=> {
 
   if(!token){
     return (
+      <div>
+      <h3 className='mt-16 text-xl text-center text-yellow-400'>Signup</h3>
      <Formhandler type = 'Signup' isValid = {true}/>
+      </div>
     )
   }
     else{

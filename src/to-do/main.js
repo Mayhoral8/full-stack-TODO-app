@@ -55,12 +55,9 @@ const navigateHandler = ()=>{
 
 if(auth.token){
     return<>
-    <div className='flex flex-row justify-between px-4 lg:px-4 mt-20 font-bold'>
-        <div className='grid grid-cols-2 '>
-        <h3 className='text-center my-auto text-sm'>Hi, {dspName}</h3>
-        </div>
-        <div className='flex'>
-        <h3 className='my-auto'>Current Tasks:</h3><span className={`${loadedData.length === 0 ? 'text-red-600': 'text-yellow-400'} pl-1 my-auto`}>{loadedData.length}</span>
+    <div className='flex flex-row justify-between px-4 lg:px-4 mt-28 font-bold'>
+        <div className='mx-auto w-32 flex'>
+        <h3 className='text-center '>Current Tasks:</h3><span className={`${loadedData.length === 0 ? 'text-red-600': 'text-yellow-400'} pl-1`}>{loadedData.length}</span>
             </div>
     </div>
     {loadedData.length === 0 ?

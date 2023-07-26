@@ -43,13 +43,13 @@ const ContextProvider = (props)=>{
       }, [])
   
     const logout = useCallback(()=>{
+        showLoading(true)
         setToken(()=> null)
         setTokenExpDate(null)
         setModalShow(false)
-        
         localStorage.removeItem('userData')
+        hideLoading(true)
         return navigate('/login')
-        
       }, [])
       
       let timeoutId;
