@@ -21,8 +21,8 @@ const Formhandler = (props) => {
     const { file, isFileValid, setFile } = files
 
     const { hideLoading, showLoading } = loading
-    const { setModalShow, setModalErrMsg, setDelModal, setLogoutModal } = modal
-    const { setUserId, setDspName } = responseData
+    const { setModalShow, setModalErrMsg, modalErrMsg, setDelModal, setLogoutModal } = modal
+   
 
     const initialState = {
         email: '',
@@ -177,7 +177,8 @@ const Formhandler = (props) => {
                 setDelModal(false)
                 setLogoutModal(false)
                 setModalShow(true)
-                setModalErrMsg(err.message)
+                setModalErrMsg(err.message === 'Failed to fetch' ? 'No internet connection' : err.message)
+                console.log(modalErrMsg)
                 console.log(err)
             }
         }

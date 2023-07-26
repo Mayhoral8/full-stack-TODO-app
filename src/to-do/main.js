@@ -55,9 +55,8 @@ const navigateHandler = ()=>{
 
 if(auth.token){
     return<>
-    <div className='flex flex-row justify-between px-4 lg:px-4 mt-16 font-bold'>
+    <div className='flex flex-row justify-between px-4 lg:px-4 mt-20 font-bold'>
         <div className='grid grid-cols-2 '>
-        <img src={`${profileImg}`} alt='' className='rounded-full border-2 w-16 h-16'/>
         <h3 className='text-center my-auto text-sm'>Hi, {dspName}</h3>
         </div>
         <div className='flex'>
