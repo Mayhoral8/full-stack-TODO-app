@@ -169,7 +169,7 @@ const Formhandler = (props) => {
                     throw new Error(responseData.message)
                 }
                 hideLoading()
-                
+                console.log(responseData)
                 auth.login(responseData.userId, responseData.name, responseData.image, responseData.token)
                 setFile('')
             } catch (err) {

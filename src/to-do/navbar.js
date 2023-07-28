@@ -51,20 +51,20 @@ const Navbar = () => {
           </div>
           </div>
           
-            <article className={`${show ? 'mt-1 border-t lg:border-none lg:h-0 md:h-0 md:block lg:block h-screen  sticky text-center  lg:text-base text-2xl  bg-gray-900 ' : ' hidden lg:block h-0'} lg:order-2 transition-all ease-in ease-out delay-400`}>
-              <div className=" h-full lg:order-2 lg:col-span-3 ">
-                <ul className={`${show ? 'grid-flow-row gap-y-10' : 'h-0'} pt-44 lg:pt-0 text-white grid lg:col-span-2 lg:w-96 lg:grid-flow-col lg:text-end `}>
+            <article className={`${show ? 'mt-1 border-t lg:border-none lg:h-0 md:h-0 md:block lg:block h-screen  sticky  lg:text-base text-2xl  bg-gray-900 ' : ' hidden lg:block h-0'} lg:mt-3  lg:order-2 transition-all ease-in ease-out delay-400`}>
+              <div className=" h-full lg:order-2">
+                <ul className={`${show ? 'grid-flow-row gap-y-10' : 'h-0'} pt-44 lg:pt-0 text-white grid  lg:w-96 lg:grid-flow-col lg:text-end `}>
                   {!auth.token ?
                     <li> <NavLink to='/login' className={`${show ? 'visible lg:block ' : 'lg:text-start hidden lg:block'} text-yellow-400`} onClick={showHandler}>
                       Login
                     </NavLink> </li> : null}
 
                     {auth.token ?
-                    <li><NavLink to='/newPlace' className={`${show ? 'visible' : 'hidden lg:block'} lg:text-start text-yellow-400 cursor-pointer`} onClick={showHandler}>Create new task</NavLink></li> : null
+                    <li><NavLink to='/newPlace' className={`${show ? 'visible' : 'hidden lg:block'} block text-center text-yellow-400 cursor-pointer`} onClick={showHandler}>Create new task</NavLink></li> : null
                   }
 
                   {auth.token ?
-                    <li className={`${show ? 'visible' : 'hidden lg:block'} cursor-pointer text-yellow-400 lg:text-end`} onClick={()=> {logoutModalHandler(); showHandler()}}>logout
+                    <li className={`${show ? 'visible' : 'hidden lg:block'} text-center cursor-pointer text-yellow-400 lg:text-end`} onClick={()=> {logoutModalHandler(); showHandler()}}>logout
                     </li>
                     : null}
 

@@ -23,8 +23,10 @@ const InputController = (props)=>{
                return {...newState, titleValid: validation}
                 }
               case 'description':{
-                return {...state, description: action.payload}
-              }
+                const newState = {...state, description: action.payload}
+                const validation =  validate(newState.title, [VALIDATOR_REQ_MAX(100)] )
+                 return {...newState, titleValid: validation}
+                  }
               case 'category':{
                 return {...state, category: action.payload, categoryValid: validate(state.category, [VALIDATOR_REQUIRE])}
               }
@@ -151,7 +153,11 @@ const isFormValid = state.titleValid.isValid && state.timeValid
         <input placeholder="Title" onBlur={()=> touchHandler('title')} className="w-full h-full border drop-shadow-md rounded-md" value={state.title} onChange={titleHandler}/>
         {titleErrShw ? <p className="text-red-400 text-sm">{titleErrMsg}</p> : null}
         </div>
-        <textarea placeholder="Description" className="h-dborder drop-shadow-md rounded-md" value={state.description} onChange={descriptionHandler}/>
+        <div>
+
+        <textarea placeholder="Description" className="h-full w-full drop-shadow-md rounded-md" value={state.description} onChange={descriptionHandler}/>
+        {titleErrShw ? <p className="text-red-400 text-sm">{titleErrMsg}</p> : null}
+        </div>
         <select
         name=""
         className="border py-2 px-4 pb-2 drop-shadow-md rounded-md"
@@ -161,6 +167,7 @@ const isFormValid = state.titleValid.isValid && state.timeValid
         <option value="Health" >Health</option>
         <option value="Fitness">Fitness</option>
         </select>
+        
         <div>
         <input required placeholder='time' value={state.time} onBlur={touchHandler} type="time" className=" w-full h-full border drop-shadow-md rounded-md" onChange={timeHandler}/>  
         {timeErrShw ? <p className="text-red-400 text-sm">{timeErrMsg}</p> : null}

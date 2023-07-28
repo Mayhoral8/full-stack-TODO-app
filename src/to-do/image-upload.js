@@ -44,10 +44,10 @@ const ImageUpload = () => {
                 <h3 className='text-white'>Set Profile Image</h3>
                 <input onChange={pickFileHandler} ref={pickedFile} type='file' style={{ display: 'none' }} accept='.jpg, .png, .jpeg' />
                 <div className='mx-auto'>
-                    <div className='h-24 w-24 border-2 overflow-hidden '>
-                        <img src={previewUrl} alt='preview' />
+                    <div className='h-24 w-24 border-2 overflow-hidden' >
+                        <img src={previewUrl} alt='preview' className=''/>
                     </div>
-                    <button type='button' className=' border-2 w-24 rounded-md text-yellow-400 h-8 mt-2' onClick={pickImageHandler}>Pick Image</button>
+                    <button type='button' className='bg-yellow-400  w-24 rounded-md text-gray-900 h-8 mt-2' onClick={pickImageHandler}>Pick Image</button>
                 </div>
             </div>
         </React.Fragment>
