@@ -1,6 +1,6 @@
 import React, { useReducer, useContext, useState } from 'react'
 import { validate } from '../validators'
-import { Contexts } from '../context/context'
+import { Contexts } from '../context/context.tsx'
 import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from '../validators'
 import ImageUpload from '../image-upload'
 import { storage, storageRef } from '../firebase/firebase-config'
@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const Formhandler = (props) => {
-    const [tempImgId, setTempImgId] = useState(uuidv4())
+    const [tempImgId, setTempImgId] = useState(uuidv4())    
     const [fbImgUrl, setFbImgUrl] = useState('')
     const server = process.env.REACT_APP_SERVER_URL
    
@@ -199,12 +199,12 @@ const Formhandler = (props) => {
 
                 <div className={`z-20 absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 px-2 w-72 bg-gray-900 rounded-md ${type ? 'h-auto' : 'h-72'}`}>
                     <div className='grid-rows-2 grid gap-y-2 mt-4 px-2'>
-                        <label className={`${type ? 'block' : 'hidden'} text-white`}>Name</label>
+                        {/* <label className={`${type ? 'block' : 'hidden'} text-white`}>Name</label>
                         {type ? <input className={`${state.nameValid || !state.isTouchName ? 'border-yellow-400 border-solid border-2 focus:outline-none focus:ring focus:ring-yellow-400' : 'border-red-500 border-2 focus:outline-none'}`} onBlur={() => touchHandler('name')} type='text' value={state.name} onChange={(e) => nameHandler(e)} /> : null}
                         {nameTxtError ? <span className='text-red-500 text-sm'>Name cannot be empty</span> : null}
                         {type && <ImageUpload />}
                         <label className='text-white'>Email</label>
-                        <input className={`${state.emailVaild || !state.isTouchEmail ? 'border-yellow-400 border-solid border-2 focus:outline-none focus:ring focus:ring-yellow-400' : 'border-red-500 border-2 focus:outline-none'}`} onBlur={() => touchHandler('email')} type='email' value={state.email} onChange={(e) => emailHandler(e)} />
+                        <input className={`${state.emailVaild || !state.isTouchEmail ? 'border-yellow-400 border-solid border-2 focus:outline-none focus:ring focus:ring-yellow-400' : 'border-red-500 border-2 focus:outline-none'}`} type='email' value={state.email} onChange={(e) => emailHandler(e)} />
                         {emailTxtError ? <span className='text-red-500 text-sm'>Invalid email</span> : null}
 
                         <label className='text-white'>Password</label>
@@ -213,7 +213,8 @@ const Formhandler = (props) => {
                         <div className='mx-auto'>
 
                             {type ? <button disabled={!isSignupValid} type='submit' className={`text-center mt-4 mb-4 ${isSignupValid ? 'bg-yellow-400 text-gray-900' : 'bg-gray-200 '} w-44 rounded-md text-gray-400 h-8`}>{type}</button> : <button disabled={!isLoginValid} type='submit' className={`text-center mt-10 ${isLoginValid ? 'bg-yellow-400' : 'bg-gray-200 text-gray-400'} w-44 rounded-md  h-8`}>{type ? 'Signup' : 'Login'}</button>}
-                        </div>
+                        </div> */}
+                <input name={props.name} type={props.type} />
                     </div>
                 </div>
             </form>

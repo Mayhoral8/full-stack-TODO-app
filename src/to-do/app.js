@@ -1,22 +1,20 @@
-import React,{useState, useCallback, useEffect, Suspense} from 'react'
-import Navbar from './navbar'
-// import Login from './login'
-// import Signup from './signup'
-// import Main from './main'
-import Home from './home'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import React,{ Suspense} from 'react'
+import Navbar from './navbar.tsx'
+
+import Home from './home.tsx'
+import { Route, Routes } from 'react-router-dom'
 import LoadingOverlay from './acessory//loadingOverlay'
-// import Newplace from './CRUD/newTask'
-// import UpdatePlace from './CRUD/updateTask'
-import { Contexts } from './context/context'
 import Modal from './acessory/modal'
+import Toast from './acessory/toast'
+import { Toaster, toast } from 'sonner';
+
 
 
 const Newplace = React.lazy(()=> import('./CRUD/newTask'))
 const UpdatePlace = React.lazy(()=> import('./CRUD/updateTask'))
-const Login = React.lazy(()=> import('./authentication/login'))
-const Signup = React.lazy(()=> import('./authentication/signup'))
-const Main = React.lazy(()=> import('./main'))
+const Login = React.lazy(()=> import('./authentication/login.tsx'))
+const Signup = React.lazy(()=> import('./authentication/signup.tsx'))
+const Main = React.lazy(()=> import('./main.tsx'))
 
 
 
@@ -27,6 +25,7 @@ const Main = React.lazy(()=> import('./main'))
    <>
         
         <Navbar/>
+        <Toast/>
         <Modal/>
         <Suspense fallback={<div><LoadingOverlay></LoadingOverlay></div>}>
         <LoadingOverlay/>

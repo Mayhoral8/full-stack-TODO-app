@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
-import { Contexts } from './context/context'
+import { Contexts } from './context/context.tsx'
 
 
-const ImageUpload = () => {
+const ImageUpload = (props) => {
     const { file, setFile, isFileValid, setIsFileValid } = useContext(Contexts).files
     const [previewUrl, setPreviewUrl] = useState('')
 
@@ -30,14 +30,13 @@ const ImageUpload = () => {
         const fileReader = new FileReader();
         fileReader.onload = () => {
             setPreviewUrl(fileReader.result)
-            console.log(file)
         }
         fileReader.readAsDataURL(file);
         setIsFileValid(true)
-        console.log(isFileValid)
+        props.onInput(previewUrl, props.id, isFileValid)
+     
 
-
-    }, [file])
+    }, [file, previewUrl, props.id, isFileValid])
     return (
         <React.Fragment>
             <div className=' justify-center grid'>

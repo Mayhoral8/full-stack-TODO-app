@@ -1,7 +1,7 @@
 import React, {useReducer, useContext} from "react";
 import { validate, VALIDATOR_REQ_MAX, VALIDATOR_REQUIRE } from "../validators";
 import { useNavigate } from "react-router-dom";
-import { Contexts } from "../context/context";
+import { Contexts } from "../context/context.tsx";
 
 
 

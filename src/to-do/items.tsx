@@ -1,19 +1,31 @@
 import React, {useContext, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { Contexts } from "./context/context";
-import Aos from "aos";
+import { Contexts } from "./context/context.tsx";
+import { LoadedData } from "./context/context.tsx";
 
 // import { data } from "./data";
-const Items = (props)=>{
-    useEffect(()=>{
-    Aos.init({ duration: 2000 });
-    })
-    const {title, description, id, category, creator, colour, itemData, itemDataLogic} = props
-    const data =  useContext(Contexts).loadedData
+type ItemData = {
+    creator: string
+    id: string
+}
+type ItemsProps = {
+    title: string
+    description: string
+    id: string
+    category: string
+    creator: string
+    colour?: string
+    itemData: ItemData[]
+    itemDataLogic: React.Dispatch<React.SetStateAction<LoadedData[]>>
+}
+const Items = (props:ItemsProps)=>{
+    
+    const {title, description, id, category, creator, colour, itemData} = props
+   console.log(itemData);
    
-    const {dspName, taskId, setTaskId} = useContext(Contexts).responseData
-    const {showLoading, hideLoading} = useContext(Contexts).loading
-    const {setModalErrMsg, setModalShow, setModalMsg, setDelModal} = useContext(Contexts).modal
+    const {taskId, setTaskId} = useContext(Contexts).responseData
+    const {taskActionType, setTaskActionType} = useContext(Contexts).task
+    const {setModalShow, setModalMsg, setDelModal} = useContext(Contexts).modal
 
 
 
@@ -22,11 +34,7 @@ const Items = (props)=>{
     const navigate = useNavigate()
 
     // console.log(props)
-    const editHandler = ()=>{
-
-        navigate('/newPlace')
-    }
-
+ 
     const deleteHandler = async ()=>{
         setModalMsg('Are you sure you want to delete this task?' )
         setDelModal(true)
@@ -34,21 +42,23 @@ const Items = (props)=>{
         setTaskId(id)
         console.log(taskId)
     }
-       
    
+      
      
  const updateHandler = ()=>{
+    console.log('works')
         setUpdateItem(()=>{
-
           return(       
               {
                   title, 
                   description, 
                   creator, 
-                  category 
+                  category
                 }
                 ) 
         })
+        setTaskActionType('update')
+        console.log(taskActionType)
          navigate(`/updatePlace/${id}`)
          setTaskId(id)
          

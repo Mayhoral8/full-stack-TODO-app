@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Contexts } from '../context/context'
+import { Contexts } from '../context/context.tsx'
 import styled from "styled-components"
 import Aos from "aos";
 import { useNavigate } from 'react-router-dom';
+import { useHttp } from '../../hooks/http-hook.tsx';
 
 
 const Modal = () => {
@@ -25,37 +26,47 @@ const Modal = () => {
         setShow(!show)
     }
 
-    const deleteHandler = async (e) => {
-        console.log('clicked')
-        setModalShow(false)
-        showLoading()
-        try {
-            console.log(taskId)
-            const response = await fetch(`${server}/api/tasks/${taskId}`,
-                {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + token
-                    }
-
-                })
-            const responseData = await response.json()
-            if (!response.ok) {
-                throw new Error(responseData.message)
-            }
-            hideLoading()
-            setDelModal(false)
-            return navigate(`/${userId}/tasks`)
-        } catch (err) {
-            hideLoading()
-            setDelModal(false)
-            setLogoutModal(false)
-            setModalShow(true)
-            setModalErrMsg(err.message)
-            console.log(err)
-        }
+    const api = `/api/tasks/${taskId}`
+    
+    const header = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
     }
+    const httpBody = {
+        method: 'DELETE',
+        headers: header
+    }
+    const [deleteHandler] = useHttp(httpBody, api, 'delete')
+    // const deleteHandler = async (e) => {
+        
+    //     setModalShow(false)
+    //     showLoading()
+    //     try {
+    //         const response = await fetch(`${server}/api/tasks/${taskId}`,
+    //             {
+    //                 method: 'DELETE',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     Authorization: 'Bearer ' + token
+    //                 }
+
+    //             })
+    //         const responseData = await response.json()
+    //         if (!response.ok) {
+    //             throw new Error(responseData.message)
+    //         }
+    //         hideLoading()
+    //         setDelModal(false)
+    //         return navigate(`/${userId}/tasks`)
+    //     } catch (err) {
+    //         hideLoading()
+    //         setDelModal(false)
+    //         setLogoutModal(false)
+    //         setModalShow(true)
+    //         setModalErrMsg(err.message)
+    //         console.log(err)
+    //     }
+    // }
     const modalFunc = () => {
         if (delModal) {
             deleteHandler()

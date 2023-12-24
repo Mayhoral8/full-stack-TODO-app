@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react'
-import home_image from './resources/home_image.png'
-import Aos from "aos";
+// import as const home_image = require('./resources/home_image.png')
 import { Link } from 'react-router-dom';
 
 
 const Home = () => {
-  useEffect(() => {
-    Aos.init({ duration: 2000 });
-  }, []);
+
 
   return (
     <React.Fragment>
@@ -35,7 +32,7 @@ const Home = () => {
           data-aos-easing="ease-out"
           data-aos-duration="1200">
 
-          <img src={home_image} className='text-center mx-auto w-96 h-64'></img>
+          <img src={require('./resources/home_image.png')} className='text-center mx-auto w-96 h-64'></img>
         </div>
       </div>
     </React.Fragment>

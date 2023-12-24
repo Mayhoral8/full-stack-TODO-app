@@ -1,46 +1,41 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useEffect, useContext} from 'react'
 import Items from './items'
-import { useParams, useNavigate } from 'react-router-dom'
-import { Contexts } from './context/context'
+import {useNavigate } from 'react-router-dom'
+import { Contexts } from './context/context.tsx'
+
 
  const Main = ()=>{
     const server = process.env.REACT_APP_SERVER_URL
-    const {loading, modal, responseData, files, auth} = useContext(Contexts)
-    const {loadedData, setLoadedData, userId, taskId, dspName} = responseData
-    const { hideLoading, showLoading} = loading
+    const {loading, modal, responseData, auth} = useContext(Contexts)
+    const {loadedData, setLoadedData, userId} = responseData
+    const { hideLoading} = loading
     const { setModalShow, setModalErrMsg, delModal} = modal
-    const { profileImg } = files
+
 
     const navigate = useNavigate()
     
 useEffect(()=>{
   const server = process.env.REACT_APP_SERVER_URL
-
-    
-    if(auth.token){
-        showLoading(true)
-        if(userId){
-            fetch(`${server}/api/tasks/${userId}`).
-            then((result)=>{
-                if(result.ok){    
-                result.json().
-                then((result)=>{
-              setLoadedData(()=> result.message)
-              hideLoading(true)
-            })
-        }else if(!result.ok){
-            console.log(result)
-            throw new Error(result.message)
-        }
-        hideLoading(true)
-      
-    }).catch((err)=>{
-        hideLoading(true)
+    if (userId){
+        const getTasks = async ()=>{
+            try{
+            const response = await fetch(`${server}/api/tasks/${userId}`)
+            const responseData = await response.json()
+            setLoadedData(responseData.message)
+            hideLoading(true)
+            console.log(response)
+            if(!response.ok){
+                console.log(response)
+            throw new Error(responseData.message)
+            }
+        }catch(err:any){
+            hideLoading(true)
         setModalShow(true)
         setModalErrMsg(err.message)
         console.log(err)
-    })
-}
+        }
+    }
+    getTasks()
 }else{
     return navigate('/login')
 }
@@ -52,9 +47,8 @@ const navigateHandler = ()=>{
 
 
 
-
 if(auth.token){
-    return<>
+    return<main>
     <div className='flex flex-row justify-between px-4 lg:px-4 mt-28 font-bold'>
         <div className='mx-auto w-32 flex'>
         <h3 className='text-center '>Current Tasks:</h3><span className={`${loadedData.length === 0 ? 'text-red-600': 'text-yellow-400'} pl-1`}>{loadedData.length}</span>
@@ -68,11 +62,13 @@ if(auth.token){
     </div>
      : <section className="grid lg:mx-24  mt-10 grid-cols-1 gap-y-6 gap-x-4 lg:grid-cols-3 md:grid-cols-2 min-h-fit">
     {loadedData.map((data, index)=>{
-    return <Items key = {data.id} id={data.id} title = {data.title} description = {data.description} creator = {data.creator} itemData = {loadedData} itemDataLogic = {setLoadedData} />
+        console.log(data);
+        
+    return <Items key = {data.id} id={data.id} category = {data.category} title = {data.title} description = {data.description} creator = {data.creator} itemData = {loadedData} itemDataLogic = {setLoadedData} />
 })}
     </section>}
     
-</> 
+</main> 
 }else{
     return navigate('/login')
 }

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import styled from "styled-components"
-import { Contexts } from '../context/context'
+import { Contexts } from '../context/context.tsx'
 
 const LoadingOverlay =()=>{
 

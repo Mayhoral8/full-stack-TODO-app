@@ -1,26 +1,17 @@
 import React from "react";
-import InputController from "./input-handler";
+
+import Task from "./task.tsx";
 
 
 
+const NewTask = ()=>{
+  
 
-const Newplace = ()=>{
-
-const initialState = {
-            title: '',
-            titleValid: {isValid: false, errorType: 'title cannot be empty'},
-            isTitleTouch: false,
-            description: '',
-            category: '',
-            time: '', 
-            timeValid: false,
-            isTimeTouch: false
-        }
 return(
-<>
-    <InputController firstState = {initialState} title = 'Add a new task' button = 'Create Task'/>
+    <> 
+    <Task type='new'/>
     </>
 )
 }
 
-export default Newplace
+export default NewTask

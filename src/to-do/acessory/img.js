@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import { Contexts } from '../context/context'
+import { Contexts } from '../context/context.tsx'
 import avatar from '../assets/avatar.jpg'
 
 
@@ -7,7 +7,6 @@ import avatar from '../assets/avatar.jpg'
  const Img = ()=> {
 const files = useContext(Contexts).files
 const { show, setShow } = useContext(Contexts).logoutContext
-console.log(show)
 const {profileImg} = files
   return (
     <div className={`w-20 lg:ml-auto `}>
